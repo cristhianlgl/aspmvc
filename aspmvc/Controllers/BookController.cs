@@ -13,10 +13,42 @@ namespace aspmvc.Controllers
             _appDbContext = appDbContext;
         }
 
+        //http get Index
         public IActionResult Index()
         {
             IEnumerable<Book> books = _appDbContext.Books;
             return View(books);
+        }
+
+
+        //http get Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                _appDbContext.Books.Add(book);
+                _appDbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Edit()
+        {
+
+            return View();
+        }
+
+        public IActionResult Delete()
+        {
+
+            return View();
         }
     }
 }
