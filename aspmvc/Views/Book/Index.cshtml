@@ -1,8 +1,48 @@
-﻿
+﻿@model IEnumerable<aspmvc.Models.Book>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Bienvenidos</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h3>Lista de Libros</h3>
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Book">Agregar Libro</a>
+        </div>
+        <div class="row mt-3">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td> @Html.DisplayNameFor(d => d.Id); </td>
+                            <td> @Html.DisplayNameFor(d => d.Title); </td>
+                            <td> @Html.DisplayNameFor(d => d.Author); </td>
+                            <td> @Html.DisplayNameFor(d => d.PublicationDate); </td>
+                            <td>actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td>@book.Id</td>
+                                <td>@book.Title</td>
+                                <td>@book.Author</td>
+                                <td>@book.PublicationDate</td>
+                                <td>accion</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No hay archivos</p>
+            }
+        </div>
+    </div>
+</div>
 

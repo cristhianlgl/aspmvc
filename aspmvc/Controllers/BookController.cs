@@ -1,5 +1,7 @@
 ﻿using aspmvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace aspmvc.Controllers
 {
@@ -13,7 +15,8 @@ namespace aspmvc.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Book> books = _appDbContext.Books;
+            return View(books);
         }
     }
 }
