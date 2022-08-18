@@ -28,27 +28,73 @@ namespace aspmvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
             if (ModelState.IsValid)
             {
                 _appDbContext.Books.Add(book);
                 _appDbContext.SaveChanges();
+                TempData["Mensaje"] = "El Libro ha sido creado Correctamente";
                 return RedirectToAction("Index");
             }
             return View();
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int? id)
         {
+            if (id is null || id == 0)
+                return NotFound();
+            
+            var book = _appDbContext.Books.Find(id);
+            
+            if(book is null)
+                return NotFound();
+                
+            return View(book);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Book book)
+        {
+            if (ModelState.IsValid)
+            { 
+                _appDbContext.Books.Update(book);
+                _appDbContext.SaveChanges();
+                TempData["Mensaje"] = "Ël libro ha sido actualizado";
+                return RedirectToAction("Index");
+            }
 
             return View();
         }
 
-        public IActionResult Delete()
+        public IActionResult Delete(int? id)
         {
+            if (id is null || id == 0)
+                return NotFound();
 
-            return View();
+            var book = _appDbContext.Books.Find(id);
+
+            if (book is null)
+                return NotFound();
+
+            return View(book);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Book book)
+        {
+            var bookDelete = _appDbContext.Books.Find(book.Id);
+            if (bookDelete is null)
+                return NotFound();
+
+            _appDbContext.Books.Remove(bookDelete);
+            _appDbContext.SaveChanges();
+            TempData["Mensaje"] = "El libro ha sido ELiminado";
+            return RedirectToAction("Index");
+
         }
     }
 }

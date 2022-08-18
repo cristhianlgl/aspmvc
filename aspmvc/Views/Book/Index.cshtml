@@ -4,6 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
+   
+    @if(TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Mensaje"]
+            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#adHocAdd">Add New</button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                
+            </button>
+        </div>
+    }
     <div class="row">
         <div class="col-sm-8">
             <h3>Lista de Libros</h3>
@@ -17,10 +28,10 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <td> @Html.DisplayNameFor(d => d.Id); </td>
-                            <td> @Html.DisplayNameFor(d => d.Title); </td>
-                            <td> @Html.DisplayNameFor(d => d.Author); </td>
-                            <td> @Html.DisplayNameFor(d => d.PublicationDate); </td>
+                            <td> @Html.DisplayNameFor(d => d.Id) </td>
+                            <td> @Html.DisplayNameFor(d => d.Title) </td>
+                            <td> @Html.DisplayNameFor(d => d.Author) </td>
+                            <td> @Html.DisplayNameFor(d => d.PublicationDate) </td>
                             <td>actions</td>
                         </tr>
                     </thead>
